@@ -2,5 +2,5 @@
 
 ## 🚀 Live Demo
 [Click here to try the Movie Recommendation System]
-https://movie-recommendation-system-by-gene-mu.vercel.app/
+https://movie-recommendation-system-by-gene.vercel.app/
 
