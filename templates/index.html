@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>
+            Movie Recommendation System
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h2>Movie Recommendation</h2>
+
+    </div>
+
+
+    <!-- Hero Section -->
+
+    <div class="hero">
+
+        <h1>
+            Find Movies By Genre
+        </h1>
+
+        <form
+            action="/recommend"
+            method="POST"
+        >
+
+            <select name="genre">
+
+                <option value="">
+                    Select Genre
+                </option>
+
+                <option value="action">
+                    Action
+                </option>
+
+                <option value="adventure">
+                    Adventure
+                </option>
+
+                <option value="animation">
+                    Animation
+                </option>
+
+                <option value="comedy">
+                    Comedy
+                </option>
+
+                <option value="crime">
+                    Crime
+                </option>
+
+                <option value="drama">
+                    Drama
+                </option>
+
+                <option value="family">
+                    Family
+                </option>
+
+                <option value="fantasy">
+                    Fantasy
+                </option>
+
+                <option value="history">
+                    History
+                </option>
+
+                <option value="horror">
+                    Horror
+                </option>
+
+                <option value="music">
+                    Music
+                </option>
+
+                <option value="mystery">
+                    Mystery
+                </option>
+
+                <option value="romance">
+                    Romance
+                </option>
+
+                <option value="science fiction">
+                    Science Fiction
+                </option>
+
+                <option value="thriller">
+                    Thriller
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Movie Results -->
+
+    {% if movies %}
+
+    <div class="movies-section">
+
+        <h2>
+
+            Recommended
+            {{ selected_genre }}
+            Movies
+
+        </h2>
+
+        <div class="movie-container">
+
+            {% for movie in movies %}
+
+            <div class="movie-card">
+
+                <img
+                    src="{{ movie.poster }}"
+                    alt="{{ movie.title }}"
+                >
+
+                <h3>
+                    {{ movie.title }}
+                </h3>
+
+                <p>
+
+                    ⭐
+                    {{ movie.rating }}/10
+
+                </p>
+
+                <p class="movie-description">
+                    {{ movie.description }}
+                </p>
+
+                {% if movie.movie_link %}
+                <a
+                    class="movie-link"
+                    href="{{ movie.movie_link }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View movie details
+                </a>
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</body>
+</html>
