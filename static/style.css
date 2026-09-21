@@ -21,6 +21,14 @@ h2{
     text-align: center;
 }
 
+.site-credit{
+    position: fixed;
+    right: 20px;
+    bottom: 14px;
+    color: #9ca3af;
+    font-size: 14px;
+    font-style: italic;
+}
 /* CENTER SECTION */
 
 .search-section{
