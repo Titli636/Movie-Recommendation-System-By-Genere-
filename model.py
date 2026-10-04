@@ -3,12 +3,14 @@ import pandas as pd
 import ast
 import os
 import requests
+from dotenv import load_dotenv
 
 # =========================
 # OMDb API KEY
 # =========================
 
-API_KEY = os.environ.get("OMDB_API_KEY")
+load_dotenv()
+API_KEY = os.environ.get("OMDB_API_KEY", "")
 
 # =========================
 # LOAD DATASET
@@ -71,32 +73,25 @@ df['genres'] = df['genres'].apply(
 # =========================
 def fetch_poster(title):
 
-    url = (
-        f"http://www.omdbapi.com/"
-        f"?apikey={API_KEY}"
-        f"&t={title.replace(' ', '+')}"
-    )
+    if not API_KEY:
+        return "https://via.placeholder.com/300x450?text=No+Poster"
+
+    url = "https://www.omdbapi.com/"
 
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(
+            url,
+            params={"apikey": API_KEY, "t": title},
+            timeout=10,
+        )
         data = response.json()
-    except requests.RequestException:
+    except (requests.RequestException, ValueError):
         data = {}
 
-    # If poster exists
-    if (
-        data.get("Poster")
-        and data["Poster"] != "N/A"
-    ):
-
+    if data.get("Poster") and data["Poster"] != "N/A":
         return data["Poster"]
 
-    # Fallback image
-    return (
-        "https://via.placeholder.com/"
-        "300x450?text=No+Poster"
-    )
-    
+    return "https://via.placeholder.com/300x450?text=No+Poster"
 
 # =========================
 # RECOMMENDATION FUNCTION
